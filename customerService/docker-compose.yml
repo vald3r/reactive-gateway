@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  postgresdb:
+    image: postgres:14.1-alpine
+    container_name: postgresdb2
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=customers
+    networks:
+      customersNetwork:
+        aliases:
+          - postgresdb
+  customer-service:
+    build: .
+    restart: always
+    container_name: customers-api
+    ports:
+      - "8082:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb/customers
+      server.port: 8080
+    depends_on:
+      - postgresdb
+    networks:
+      customersNetwork:
+        aliases:
+          - customers
+networks:
+  customersNetwork:
+

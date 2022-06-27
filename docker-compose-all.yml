@@ -1,0 +1,121 @@
+version: "3.9"
+services:
+  postgresdbCustomers:
+    image: postgres:14.1-alpine
+    container_name: postgresdbCustomers
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=customers
+    networks:
+      customersNetwork:
+        aliases:
+          - postgresdbCustomers
+  customer-service:
+    build: customerService/.
+    restart: always
+    container_name: customers-api
+    ports:
+      - "8082:8080"
+    environment:
+      server.port: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdbCustomers:5432/customers
+    depends_on:
+      - postgresdbCustomers
+    networks:
+      customersNetwork:
+        aliases:
+          - customers
+      gatewayNetwork:
+        aliases:
+          - customers-api
+
+  postgresdbProducts:
+    image: postgres:14.1-alpine
+    container_name: postgresdbProducts
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=products
+    networks:
+      productsNetwork:
+        aliases:
+          - postgresdbProducts
+  product-service:
+    build: productService/.
+    restart: always
+    container_name: products-api
+    ports:
+      - "8081:8080"
+    environment:
+      server.port: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdbProducts:5432/products
+    depends_on:
+      - postgresdbProducts
+    networks:
+      productsNetwork:
+        aliases:
+          - products
+      gatewayNetwork:
+        aliases:
+          - products-api
+
+  postgresdbOrders:
+    image: postgres:14.1-alpine
+    container_name: postgresdbOrders
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=orders
+    networks:
+      ordersNetwork:
+        aliases:
+          - postgresdbOrders
+  orders-service:
+    build: orderService/.
+    restart: always
+    container_name: orders-api
+    ports:
+      - "8080:8080"
+    environment:
+      server.port: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdbOrders:5432/orders
+    depends_on:
+      - postgresdbOrders
+    networks:
+      ordersNetwork:
+        aliases:
+          - orders
+      gatewayNetwork:
+        aliases:
+          - orders-api
+  gateway-service:
+    build: customer-orders-gateway/.
+    restart: always
+    container_name: gateway-api
+    ports:
+      - "8084:8080"
+    environment:
+      server.port: 8080
+      endpoints.customerOrdersGateway: http://gateway-service:8080/api/v1/orders/
+      endpoints.orderService: http://orders-service:8080/api/v1/orders/
+      endpoints.customerService: http://customer-service:8080/api/v1/customers/
+      endpoints.productService: http://product-service:8080/api/v1/products/
+    networks:
+      gatewayNetwork:
+        aliases:
+          - gateway-api
+networks:
+  customersNetwork:
+  ordersNetwork:
+  productsNetwork:
+  gatewayNetwork:
+
+
+

@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  postgresdb:
+    image: postgres:14.1-alpine
+    container_name: postgresdb
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=orders
+    networks:
+      ordersNetwork:
+        aliases:
+          - postgresdb
+  orders-service:
+    build: .
+    restart: always
+    container_name: orders-api
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb/orders
+      server.port: 8080
+    depends_on:
+      - postgresdb
+    networks:
+      ordersNetwork:
+        aliases:
+          - orders-api
+networks:
+  ordersNetwork:
+
