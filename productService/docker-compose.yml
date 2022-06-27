@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  postgresdb:
+    image: postgres:14.1-alpine
+    container_name: postgresdb1
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=products
+    networks:
+      productsNetwork:
+        aliases:
+          - postgresdb
+  product-service:
+    build: .
+    restart: always
+    container_name: products-api
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb/products
+      server.port: 8080
+    depends_on:
+      - postgresdb
+    networks:
+      productsNetwork:
+        aliases:
+          - products
+networks:
+  productsNetwork:
+

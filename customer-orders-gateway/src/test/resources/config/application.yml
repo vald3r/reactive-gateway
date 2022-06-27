@@ -1,0 +1,9 @@
+server:
+  port: 8084
+
+endpoints:
+  baseUrl: "http://localhost:8080" # Do not change - mocking web server
+  customerOrdersGateway: "${endpoints.baseUrl}/api/v1/orders/"
+  orderService: "${endpoints.baseUrl}/api/v1/orders/"
+  customerService: "${endpoints.baseUrl}/api/v1/customers/"
+  productService: "${endpoints.baseUrl}/api/v1/products/"
