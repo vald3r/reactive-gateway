@@ -1,0 +1,5 @@
+rootProject.name = 'reactive-gateway'
+include 'customer-orders-gateway'
+include 'customer-service'
+include 'order-service'
+include 'product-service'
