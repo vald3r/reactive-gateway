@@ -2,13 +2,13 @@ plugins {
     id 'org.springframework.boot' version '2.7.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'jacoco'
 }
 
 group = 'ru.vald3r'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-tasks.register("prepareKotlinBuildScriptModel") {}
 
 configurations {
     compileOnly {
@@ -41,6 +41,8 @@ dependencies {
     runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.77.Final:osx-aarch_64'
     testImplementation 'com.squareup.okhttp3:okhttp:4.10.0'
     testImplementation 'com.squareup.okhttp3:mockwebserver:4.10.0'
+    testImplementation  'org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M7'
+
 }
 
 dependencyManagement {
@@ -49,7 +51,20 @@ dependencyManagement {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
 }
-
+tasks.register("prepareKotlinBuildScriptModel") {}
 tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.6"
 }
