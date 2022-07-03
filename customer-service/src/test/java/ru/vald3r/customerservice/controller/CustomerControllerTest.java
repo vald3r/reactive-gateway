@@ -1,14 +1,13 @@
-package ru.vald3r.customerservice.service;
+package ru.vald3r.customerservice.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import ru.vald3r.customerservice.model.Customer;
 import ru.vald3r.customerservice.model.CustomerDto;
-import ru.vald3r.customerservice.model.CustomerMapperImpl;
+import ru.vald3r.customerservice.service.CustomerService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -16,26 +15,22 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("integration-test")
-class CustomerServiceImplTest {
+class CustomerControllerTest {
+
+    @MockBean
+    CustomerService customerService;
     @Autowired
-    private CustomerService customerService;
-    @SpyBean
-    private CustomerMapperImpl customerMapper;
+    private CustomerController customerController;
 
     @Test
     void find() {
-        Customer customerFromDb = new Customer();
-        customerFromDb.setId(1L).setName("Igor");
-
         CustomerDto customerDto = new CustomerDto();
         customerDto.setId(1L).setName("Igor");
-
-        when(customerMapper.customerToCustomerDto(customerFromDb)).thenReturn(customerDto);
+        when(customerService.find(1L)).thenReturn(customerDto);
 
         assertEquals(
-                customerDto,
-                customerService.find(1L)
+                customerController.find(1L),
+                customerDto
         );
     }
-
 }

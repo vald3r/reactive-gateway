@@ -1,9 +1,7 @@
 package ru.vald3r.productservice.service;
 
-import ru.vald3r.productservice.model.Product;
-
-import java.util.Optional;
+import ru.vald3r.productservice.model.ProductDto;
 
 public interface ProductService {
-    Optional<Product> find(Long id);
+    ProductDto find(Long id);
 }

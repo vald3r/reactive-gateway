@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.vald3r.productservice.model.ProductDto;
-import ru.vald3r.productservice.model.ProductMapper;
 import ru.vald3r.productservice.service.ProductService;
 
 
@@ -17,12 +16,9 @@ import ru.vald3r.productservice.service.ProductService;
 @Slf4j
 public class ProductController {
     private final ProductService productService;
-    private final ProductMapper productMapper;
 
     @GetMapping("/{id}")
     public ProductDto find(final @PathVariable Long id) {
-        return productService.find(id)
-                .map(productMapper::productToProductDto)
-                .orElseThrow();
+        return productService.find(id);
     }
 }

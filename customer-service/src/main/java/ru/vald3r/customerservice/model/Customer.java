@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
@@ -20,6 +21,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@Accessors(chain = true)
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

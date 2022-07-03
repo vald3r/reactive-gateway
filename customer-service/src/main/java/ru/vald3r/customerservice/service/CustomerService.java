@@ -1,9 +1,7 @@
 package ru.vald3r.customerservice.service;
 
-import ru.vald3r.customerservice.model.Customer;
-
-import java.util.Optional;
+import ru.vald3r.customerservice.model.CustomerDto;
 
 public interface CustomerService {
-    Optional<Customer> find(Long id);
+    CustomerDto find(Long id);
 }

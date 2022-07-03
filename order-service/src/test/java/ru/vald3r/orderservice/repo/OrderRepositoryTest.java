@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class OrderRepositoryTest {
     @Autowired
     private OrderRepository orderRepository;
+
     @Test
     void findAllByCustomerId() {
         List<Order> allByCustomerId = orderRepository.findAllByCustomerId(1L);

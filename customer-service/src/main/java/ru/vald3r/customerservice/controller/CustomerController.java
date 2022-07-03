@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.vald3r.customerservice.model.CustomerDto;
-import ru.vald3r.customerservice.model.CustomerMapper;
 import ru.vald3r.customerservice.service.CustomerService;
 
 
@@ -17,12 +16,9 @@ import ru.vald3r.customerservice.service.CustomerService;
 @Slf4j
 public class CustomerController {
     private final CustomerService customerService;
-    private final CustomerMapper customerMapper;
 
     @GetMapping("/{id}")
     public CustomerDto find(final @PathVariable Long id) {
-        return customerService.find(id)
-                .map(customerMapper::customerToCustomerDto)
-                .orElseThrow();
+        return customerService.find(id);
     }
 }

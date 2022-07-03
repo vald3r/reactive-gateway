@@ -70,8 +70,9 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
-                    "ru/vald3r/**/model/*",
+                    "ru/vald3r/**/model/**",
                     "ru/vald3r/**/*Dto.*",
+                    "ru/vald3r/**/*Application.*",
                     "**/config/*"
             ])
         }))
@@ -89,6 +90,8 @@ jacoco {
 sonarqube {
     properties {
         property "sonar.projectKey", "vald3r_reactive-gateway"
+        property 'sonar.coverage.exclusions', "ru/vald3r/**/model/**"
+        property 'sonar.coverage.exclusions', "ru/vald3r/**/*Application.*"
         property "sonar.organization", "vald3r"
         property "sonar.host.url", "https://sonarcloud.io"
     }

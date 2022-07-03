@@ -1,42 +1,36 @@
-package ru.vald3r.productservice.service;
+package ru.vald3r.productservice.controller;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import ru.vald3r.productservice.model.Product;
 import ru.vald3r.productservice.model.ProductDto;
-import ru.vald3r.productservice.model.ProductMapperImpl;
+import ru.vald3r.productservice.service.ProductService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("integration-test")
-class ProductServiceTest {
-
-
-    @SpyBean
-    ProductMapperImpl productMapper;
+class ProductControllerTest {
     @Autowired
+    ProductController productController;
+    @MockBean
     private ProductService productService;
+
 
     @Test
     void find() {
-        Product product = new Product();
-        product.setId(1L).setTitle("PC");
-
         ProductDto productDto = new ProductDto();
         productDto.setId(1L).setTitle("PC");
-
-        when(productMapper.productToProductDto(product)).thenReturn(productDto);
+        Mockito.when(productService.find(1L)).thenReturn(productDto);
 
         assertEquals(
-                productDto,
-                productService.find(1L)
+                productController.find(1L),
+                productDto
         );
     }
 }
