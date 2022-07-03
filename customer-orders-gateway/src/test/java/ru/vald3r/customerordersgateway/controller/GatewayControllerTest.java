@@ -1,16 +1,18 @@
 package ru.vald3r.customerordersgateway.controller;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 import ru.vald3r.customerordersgateway.config.EndpointsConfig;
-import ru.vald3r.customerordersgateway.model.*;
+import ru.vald3r.customerordersgateway.model.CustomerDto;
+import ru.vald3r.customerordersgateway.model.OrderDto;
+import ru.vald3r.customerordersgateway.model.OrdersItem;
+import ru.vald3r.customerordersgateway.model.ProductDto;
+import ru.vald3r.customerordersgateway.model.ResponseDto;
 import ru.vald3r.customerordersgateway.service.GatewayService;
 
 import java.util.ArrayList;
@@ -18,7 +20,6 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
 @WebFluxTest(controllers = GatewayController.class)
 @Import(EndpointsConfig.class)
 class GatewayControllerTest {
@@ -75,7 +76,7 @@ class GatewayControllerTest {
         when(gatewayService.getOrdersByCustomerId(1L)).thenReturn(Mono.just(expectedResponse));
 
         webTestClient.get()
-                .uri(endpointsConfig.getCustomerOrdersGateway() + "1")
+                .uri(endpointsConfig.getCustomerOrdersGateway() + "?clientId={id}", 1L)
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful()

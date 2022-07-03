@@ -13,7 +13,7 @@ public class ProductsGateway {
     private final WebClient webClient;
     private final EndpointsConfig endpointsConfig;
 
-    public Mono<ProductDto> getProduct(Long id) {
+    public Mono<ProductDto> getProduct(final Long id) {
 
         return webClient.get()
                 .uri(endpointsConfig.getProductService() + "{id}", id)
