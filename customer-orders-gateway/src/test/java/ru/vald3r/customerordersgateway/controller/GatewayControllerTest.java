@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @WebFluxTest(controllers = GatewayController.class)
 @Import(EndpointsConfig.class)
-public class GatewayControllerTest {
+class GatewayControllerTest {
     @Autowired
     WebTestClient webTestClient;
     @Autowired
@@ -30,7 +30,7 @@ public class GatewayControllerTest {
     GatewayService gatewayService;
 
     @Test
-    public void gatewayTest() {
+    void gatewayTest() {
 
         CustomerDto expectedCustomer = CustomerDto.builder()
                 .id(1L)
