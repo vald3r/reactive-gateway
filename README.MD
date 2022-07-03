@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/vald3r/reactive-gateway/branch/master/graph/badge.svg?token=6H4ZNYSRLJ)](https://codecov.io/gh/vald3r/reactive-gateway)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vald3r_reactive-gateway&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vald3r_reactive-gateway)
 # Reactive gateway service
 
 There is a microservice architecture which contains 3 microservices. Each service has external REST endpoints to support several types of clients (web, android, ios). To display the page with orders for a certain customers the information should be obtained from all three microservices: customer-service to display name of the customer, order-service to display all orders, product-service to display product information in orders. In this case, requests can be made asynchronously:
