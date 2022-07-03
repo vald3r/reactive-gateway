@@ -2,13 +2,14 @@ plugins {
     id 'org.springframework.boot' version '2.7.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'jacoco'
+    id "org.sonarqube" version "3.4.0.2513"
 }
 
 group = 'ru.vald3r'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-tasks.register("prepareKotlinBuildScriptModel") {}
 
 configurations {
     compileOnly {
@@ -49,7 +50,37 @@ dependencyManagement {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
 }
-
+tasks.register("prepareKotlinBuildScriptModel") {}
 tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "ru/vald3r/**/model/*",
+                    "ru/vald3r/**/*Dto.*",
+                    "**/config/*"
+            ])
+        }))
+    }
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.6"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "vald3r_reactive-gateway"
+        property "sonar.organization", "vald3r"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
