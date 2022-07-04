@@ -14,7 +14,7 @@ services:
         aliases:
           - postgresdbCustomers
   customer-service:
-    build: customerService/.
+    build: customer-service/.
     restart: always
     container_name: customers-api
     ports:
@@ -46,7 +46,7 @@ services:
         aliases:
           - postgresdbProducts
   product-service:
-    build: productService/.
+    build: product-service/.
     restart: always
     container_name: products-api
     ports:
@@ -78,7 +78,7 @@ services:
         aliases:
           - postgresdbOrders
   orders-service:
-    build: orderService/.
+    build: order-service/.
     restart: always
     container_name: orders-api
     ports:

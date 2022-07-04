@@ -16,7 +16,7 @@ public class CustomersGateway {
     private final WebClient webClient;
     private final EndpointsConfig endpointsConfig;
 
-    public Mono<CustomerDto> getCustomer(Long id) {
+    public Mono<CustomerDto> getCustomer(final Long id) {
 
         return webClient.get()
                 .uri(endpointsConfig.getCustomerService() + "{id}", id)

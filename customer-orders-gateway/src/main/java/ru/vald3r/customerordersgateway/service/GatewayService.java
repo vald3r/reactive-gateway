@@ -27,7 +27,7 @@ public class GatewayService {
     private final ProductsGateway productsGateway;
     private final CustomersGateway customersGateway;
 
-    public Mono<ResponseDto> getOrdersByCustomerId(Long id) {
+    public Mono<ResponseDto> getOrdersByCustomerId(final Long id) {
         Mono<List<OrderDto>> orders = ordersGateway.getOrder(id);
         Mono<CustomerDto> customer = customersGateway.getCustomer(id);
 
@@ -52,7 +52,7 @@ public class GatewayService {
                 );
     }
 
-    private Mono<OrdersItem> orderDtoToOrderItem(OrderDto orderDto) {
+    private Mono<OrdersItem> orderDtoToOrderItem(final OrderDto orderDto) {
         return productsGateway.getProduct(orderDto.getProductId())
                 .map(productDto -> OrdersItem
                         .builder()

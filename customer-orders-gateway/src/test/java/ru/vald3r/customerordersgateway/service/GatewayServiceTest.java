@@ -10,7 +10,11 @@ import reactor.test.StepVerifier;
 import ru.vald3r.customerordersgateway.gateway.CustomersGateway;
 import ru.vald3r.customerordersgateway.gateway.OrdersGateway;
 import ru.vald3r.customerordersgateway.gateway.ProductsGateway;
-import ru.vald3r.customerordersgateway.model.*;
+import ru.vald3r.customerordersgateway.model.CustomerDto;
+import ru.vald3r.customerordersgateway.model.OrderDto;
+import ru.vald3r.customerordersgateway.model.OrdersItem;
+import ru.vald3r.customerordersgateway.model.ProductDto;
+import ru.vald3r.customerordersgateway.model.ResponseDto;
 
 import java.util.ArrayList;
 import java.util.List;

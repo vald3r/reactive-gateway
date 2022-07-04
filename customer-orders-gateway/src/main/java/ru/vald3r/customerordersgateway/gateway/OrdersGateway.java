@@ -17,7 +17,7 @@ public class OrdersGateway {
     private final WebClient webClient;
     private final EndpointsConfig endpointsConfig;
 
-    public Mono<List<OrderDto>> getOrder(Long id) {
+    public Mono<List<OrderDto>> getOrder(final Long id) {
 
         return webClient.get()
                 .uri(endpointsConfig.getOrderService() + "{id}", id)
