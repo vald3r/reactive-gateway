@@ -1,14 +1,8 @@
-[![codecov](https://codecov.io/gh/vald3r/reactive-gateway/branch/master/graph/badge.svg?token=6H4ZNYSRLJ)](https://codecov.io/gh/vald3r/reactive-gateway)
-
-- all services\
-  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vald3r_reactive-gateway&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vald3r_reactive-gateway)
-- product-service \
-  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vald3r_reactive-gateway_customer-orders-gateway&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vald3r_reactive-gateway_customer-orders-gateway)
-- customer-orders-gateway \
-  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vald3r_reactive-gateway_customer-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vald3r_reactive-gateway_customer-service)
-- customer-service \
-  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vald3r_reactive-gateway_order-sevice&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vald3r_reactive-gateway_order-sevice)
-- order-sevice
+[![codecov](https://codecov.io/gh/vald3r/reactive-gateway/branch/master/graph/badge.svg?token=6H4ZNYSRLJ)](https://codecov.io/gh/vald3r/reactive-gateway) - all services\
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vald3r_reactive-gateway&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vald3r_reactive-gateway) - product-service \
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vald3r_reactive-gateway_customer-orders-gateway&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vald3r_reactive-gateway_customer-orders-gateway) - customer-orders-gateway \
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vald3r_reactive-gateway_customer-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vald3r_reactive-gateway_customer-service) - customer-service \
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vald3r_reactive-gateway_order-sevice&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vald3r_reactive-gateway_order-sevice) - order-sevice
 
 # Reactive gateway service
 
